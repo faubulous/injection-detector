@@ -23,6 +23,30 @@
         return originalGetElementById.apply(this, arguments);
       };
 
+      var originalAddEventListener = document.addEventListener;
+
+      document.addEventListener = function (a, b) {
+        commands.push('document.addEventListener("' + a + '")');
+
+        return originalAddEventListener.apply(this, arguments);
+      };
+
+      var originalGetElementsByTagName = document.getElementsByTagName;
+
+      document.getElementsByTagName = function (a, b) {
+        commands.push('document.getElementsByTagName("' + a + '")');
+
+        return originalGetElementsByTagName.apply(this, arguments);
+      };
+
+      var originalCreateElement = document.createElement;
+
+      document.createElement = function (a, b) {
+        commands.push('document.createElement("' + a + '")');
+
+        return originalCreateElement.apply(this, arguments);
+      };
+
       window.addEventListener('load', function () {
         let results = document.querySelector('#results');
 
